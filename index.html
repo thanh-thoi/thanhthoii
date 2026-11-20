@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thư viện số cá nhân · Editorial Tech</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Playfair+Display:wght@600;800&display=swap">
+<style>
+:root{--bg:#eef1f6;--card:#fff;--ink:#0b1020;--mute:#556080;--line:#d5dbe8;--blue:#2f5bff;--blue-ink:#fff;--hot:#ff5c39;--hero:#0b1020;--hero-ink:#f2f5ff;--soft:#e3e9ff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0f1d;--card:#131b30;--ink:#eaf0ff;--mute:#9aa6c6;--line:#27324f;--blue:#6d8cff;--blue-ink:#0a0f1d;--hero:#060a15;--soft:#1b2748;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a0f1d;--card:#131b30;--ink:#eaf0ff;--mute:#9aa6c6;--line:#27324f;--blue:#6d8cff;--blue-ink:#0a0f1d;--hero:#060a15;--soft:#1b2748;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 "Be Vietnam Pro",system-ui,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:"Playfair Display",Georgia,serif;line-height:1.15;margin:0}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:6px;background:var(--card);border-bottom:1px solid var(--line);padding:8px 18px;overflow-x:auto}
+.logo{background:var(--ink);color:var(--bg);font-weight:700;border-radius:8px;padding:4px 10px;margin-right:auto;white-space:nowrap}
+.top a{color:var(--mute);text-decoration:none;font-weight:500;padding:6px 11px;border-radius:99px;white-space:nowrap}
+.top a:hover{background:var(--soft);color:var(--ink)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.hero{background:var(--hero);color:var(--hero-ink);padding:64px 0 56px}
+.hero .wrap{display:grid;grid-template-columns:1.6fr 1fr;gap:36px;align-items:end}
+@media(max-width:760px){.hero .wrap{grid-template-columns:1fr}}
+.kick{font-size:.85rem;color:#9fb2ff;margin:0 0 12px}
+.hero h1{font-size:clamp(2.2rem,6.5vw,4.4rem);font-weight:800;letter-spacing:-.02em}
+.hero p.lead{color:#b9c4e6;max-width:56ch;margin:16px 0 24px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{font:inherit;font-weight:700;border:0;border-radius:10px;padding:11px 18px;cursor:pointer;background:var(--blue);color:var(--blue-ink);text-decoration:none;display:inline-block}
+.btn.o{background:transparent;color:inherit;border:1px solid currentColor}
+.stat{border:1px solid #2a3558;border-radius:14px;padding:20px}
+.stat b{font:800 3rem/1 "Playfair Display",serif}
+.stat small{display:block;color:#9fb2ff;margin-top:4px}
+.bar{height:8px;background:#27324f;border-radius:9px;margin-top:14px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--hot);transition:width .4s}
+section{padding:56px 0 8px}
+.ey{color:var(--hot);font-weight:700;margin-bottom:6px}
+h2{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800}
+.sub{color:var(--mute);margin:8px 0 22px;max-width:62ch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.toc button,.tab{font:inherit;color:inherit;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;display:block;width:100%}
+.toc button:hover,.tab:hover{border-color:var(--blue)}
+.toc small,.tab small{color:var(--mute);display:block}
+.toc .ok::after,.tab.ok small::after{content:" · đã học";color:var(--blue);font-weight:700}
+.map{position:relative;height:520px;border-radius:14px;border:1px solid var(--line);background:var(--card);overflow:hidden;touch-action:none}
+.map svg{width:100%;height:100%;cursor:grab;display:block}
+.map svg:active{cursor:grabbing}
+.tools{position:absolute;right:10px;top:10px;display:flex;gap:6px;flex-wrap:wrap;z-index:2}
+.tools button{font:inherit;font-size:.85rem;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer}
+.nd rect{fill:var(--soft);stroke:var(--blue);stroke-width:1.5}
+.nd.c rect{fill:var(--ink);stroke:none}.nd.c text{fill:var(--bg)}
+.nd.l rect{fill:var(--card);stroke:var(--line)}
+.nd text{fill:var(--ink);font:500 13px "Be Vietnam Pro",sans-serif;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.nd{cursor:pointer}.nd:hover rect{stroke:var(--hot)}
+.ln{stroke:var(--line);stroke-width:2;fill:none}
+.info{margin-top:14px}
+.info ul{margin:8px 0 14px;padding-left:20px}
+.tabs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:14px}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab[aria-selected="true"] small{color:var(--bg);opacity:.75}
+.sim{background:var(--soft);border-radius:10px;padding:14px;margin:14px 0}
+textarea,input{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}
+textarea{min-height:100px;resize:vertical}
+code{display:block;word-break:break-all;margin-top:8px;font:500 .9rem ui-monospace,Menlo,Consolas,monospace;color:var(--blue)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:16px}
+.seg button{font:inherit;border:0;background:var(--card);color:var(--ink);padding:8px 16px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--blue);color:var(--blue-ink);font-weight:700}
+.fc{max-width:540px}
+.face{width:100%;min-height:210px;font:inherit;color:inherit;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;cursor:pointer}
+.face.b{background:var(--blue);color:var(--blue-ink)}
+.face small{opacity:.7}.face h3{margin-top:6px;font-size:1.6rem}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;align-items:center}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}.map{height:440px}}
+.nl{display:grid;gap:12px}
+.nl label{font-weight:700}
+:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;opacity:0;transition:.3s;pointer-events:none;z-index:30}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{margin-top:64px;padding:26px 20px;text-align:center;color:var(--mute);border-top:1px solid var(--line)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="top">
+  <span class="logo">IT4</span>
+  <a href="#muc-luc">Mục lục</a><a href="#so-do">Sơ đồ tư duy</a><a href="#bai-giang">Kho bài giảng (8)</a><a href="#ghi-nho">Ghi nhớ cá nhân</a><a href="#" id="theme" role="button">Sáng/Tối</a>
+</div>
+
+<header class="hero"><div class="wrap">
+  <div>
+    <p class="kick">Assignment phần 1 · Hệ thống lưu trữ học tập</p>
+    <h1>Thư viện số cá nhân</h1>
+    <p class="lead">Hệ thống hóa 8 chuyên đề học thuật: bài giảng, sơ đồ tư duy, thẻ ghi nhớ và ghi chú riêng của bạn trong một nơi.</p>
+    <div class="btns"><a class="btn" href="#so-do">Khám phá sơ đồ tư duy</a><a class="btn o" href="#bai-giang">Vào kho bài giảng</a><a class="btn o" href="#muc-luc">Xem mục lục</a></div>
+  </div>
+  <div class="stat"><small>Tiến độ học tập</small><b id="n">0</b> / 8 chuyên đề<div class="bar"><i id="fill"></i></div></div>
+</div></header>
+
+<main class="wrap">
+<section id="muc-luc">
+  <div class="ey">Lộ trình học phần</div><h2>Mục lục chuyên đề</h2>
+  <p class="sub">Chọn một bài để mở nhanh nội dung bài giảng.</p>
+  <div class="toc" id="toc"></div>
+</section>
+
+<section id="so-do">
+  <div class="ey">01 • Bản đồ tri thức toàn cảnh</div><h2>Sơ đồ tư duy tương tác</h2>
+  <p class="sub">Kéo để di chuyển, cuộn chuột hoặc dùng nút để thu phóng. Bấm vào từng nhánh để mở các khái niệm con.</p>
+  <div class="map">
+    <div class="tools"><button id="zin">Phóng to</button><button id="zout">Thu nhỏ</button><button id="all">Mở rộng tất cả</button><button id="none">Thu gọn nhánh</button><button id="zr" aria-live="polite">100%</button></div>
+    <svg id="svg" viewBox="-600 -420 1200 840" role="img" aria-label="Sơ đồ tư duy 8 chuyên đề"><g id="g"></g></svg>
+  </div>
+  <div class="card info" id="info"></div>
+</section>
+
+<section id="bai-giang">
+  <div class="ey">02 • Kho học liệu đa phương tiện</div><h2>8 chuyên đề bài giảng và mô phỏng</h2>
+  <p class="sub">Chọn từng bài để xem tóm tắt, thử mô phỏng và ghi chú.</p>
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div class="card" id="lesson"></div>
+</section>
+
+<section id="ghi-nho">
+  <div class="ey">03 • Củng cố và sổ tay cá nhân</div><h2>Thẻ ghi nhớ và ghi nhớ cá nhân</h2>
+  <p class="sub">Lật thẻ thuật ngữ cốt lõi hoặc quản lý ghi nhớ của cả 8 bài.</p>
+  <div class="seg"><button id="m1" aria-pressed="true">Thẻ ghi nhớ</button><button id="m2" aria-pressed="false">Quản lý ghi nhớ</button></div>
+  <div id="cards"><div class="fc"><button class="face" id="face"></button><div class="row"><button class="btn o" id="pv" style="color:var(--ink)">Thẻ trước</button><button class="btn o" id="sh" style="color:var(--ink)">Xáo trộn</button><button class="btn" id="nx">Thẻ tiếp</button><span id="ci" style="color:var(--mute)"></span></div></div></div>
+  <div id="notes" class="nl" hidden></div>
+</section>
+
+<section id="ho-so">
+  <div class="ey">Hồ sơ</div><h2>Hồ sơ học tập sinh viên</h2>
+  <div class="card" style="margin-top:18px">
+    <div class="g2">
+      <div><label for="p1">Họ và tên sinh viên</label><input id="p1" autocomplete="name"></div>
+      <div><label for="p2">Mã số sinh viên</label><input id="p2"></div>
+      <div><label for="p3">Môn học</label><input id="p3"></div>
+      <div><label for="p4">Ngày lập hồ sơ</label><input id="p4" type="date"></div>
+    </div>
+    <div class="row"><button class="btn" id="save">Lưu hồ sơ</button><button class="btn o" id="reset" style="color:var(--ink)">Đặt lại dữ liệu</button><span id="cnt" style="color:var(--mute)"></span></div>
+  </div>
+</section>
+</main>
+<footer id="foot"></footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ===== SỬA NỘI DUNG Ở ĐÂY ===== */
+const L=[{"t": "Tổng quan về CMCN 4.0, CNTT 4.0 và chuyển đổi số", "n": "Bài 1 · CMCN 4.0", "k": ["4 cuộc cách mạng", "AI, IoT, Big Data", "Chuyển đổi số"], "s": "Bức tranh tổng thể của ngành CNTT: lịch sử các cuộc cách mạng công nghiệp, công nghệ cốt lõi của thời đại 4.0, chuyển đổi số và kỹ năng cần có.", "p": ["CMCN 1.0 (khoảng 1760–1840): máy hơi nước, cơ khí hóa sản xuất", "CMCN 2.0 (từ khoảng 1870): điện năng, dây chuyền sản xuất hàng loạt", "CMCN 3.0 (từ khoảng 1970): máy tính, điện tử, Internet, tự động hóa", "CMCN 4.0 (từ khoảng 2010): kết nối vật lý và số, máy tự học, dữ liệu là tài nguyên quan trọng", "Công nghệ chính: AI, IoT, Big Data (3V: Volume, Velocity, Variety), Cloud Computing", "CNTT 4.0: dùng CNTT hiện đại để xử lý dữ liệu, tự động hóa, kết nối con người, thiết bị và hệ thống", "Nghề phổ biến: lập trình viên, kỹ sư AI, Data Analyst, quản trị hệ thống, an ninh mạng, UI/UX", "Kỹ năng: tư duy logic, tư duy lập trình, giải quyết vấn đề, làm việc nhóm, giao tiếp, thuyết trình, quản lý thời gian", "Lời khuyên: học chắc kiến thức cơ bản, thực hành nhiều, học tiếng Anh, cập nhật công nghệ mới"], "sim": "bin", "x": "Các slide về chuyển đổi số ở Việt Nam và theo Liên hợp quốc chỉ có hình ảnh, bạn nên bổ sung nội dung đó."}, {"t": "Kiến trúc và phần cứng máy tính", "n": "Bài 2 · Phần cứng", "k": ["Lịch sử 5 thế hệ", "CPU, RAM, ROM", "Nhập, xuất, lưu trữ"], "s": "Máy tính là thiết bị điện tử xử lý thông tin theo mô hình Input → Process → Output → Storage.", "p": ["5 thế hệ: bóng đèn chân không, transistor, mạch tích hợp (IC), vi xử lý, AI và xử lý song song", "Phân loại theo quy mô: siêu máy tính, máy tính lớn (mainframe), máy chủ, PC", "Phân loại theo hình thức: desktop, laptop, tablet, smartphone", "CPU là bộ não của máy tính; hiệu năng phụ thuộc xung nhịp (GHz), số nhân (cores), bộ nhớ cache", "CPU phổ biến: Intel Core i3 đến i9, AMD Ryzen 3 đến 9", "RAM là bộ nhớ tạm, nhanh, mất dữ liệu khi tắt nguồn (DDR4, DDR5); 8 GB cơ bản, 16 GB học tập và lập trình, 32 GB trở lên cho đồ họa hoặc game", "ROM là bộ nhớ chỉ đọc, chứa BIOS/UEFI và firmware", "Lưu trữ lâu dài: HDD, SSD, USB, thẻ nhớ; đơn vị KB, MB, GB, TB", "Thiết bị nhập: bàn phím, chuột, máy quét, micro, webcam; thiết bị xuất: màn hình, máy in, loa, máy chiếu", "Màn hình: Full HD, 2K/QHD, 4K; tấm nền LCD/LED hoặc OLED"], "x": "Phần mô tả máy in và xu hướng công nghệ máy tính ở cuối deck chưa được đưa vào đầy đủ."}, {"t": "Hệ điều hành và môi trường số đa nền tảng", "n": "Bài 3 · Hệ điều hành", "k": ["Hệ điều hành", "Ảo hóa, Docker", "OS tích hợp AI"], "s": "Hệ điều hành (OS) là phần mềm nền móng điều phối tài nguyên phần cứng, và là cầu nối để làm việc trong môi trường số đa nền tảng.", "p": ["Nội dung chính: hệ điều hành phổ biến, hướng dẫn cài đặt, lưu ý để dùng hệ điều hành hiệu quả", "Môi trường số đa nền tảng và khái niệm hệ sinh thái hợp nhất (Unified Ecosystem)", "Ảo hóa (Virtualization) và container hóa (Containerization, Docker)", "Chọn kiến trúc theo ưu tiên: bảo mật tối đa thì dùng máy ảo (VM), hiệu suất và linh hoạt thì dùng container", "Hệ điều hành tích hợp AI (AI-Integrated OS) và sự chuyển dịch mô hình hệ điều hành"], "x": "Lưu ý: nhiều slide của bài này chỉ chứa hình ảnh nên tóm tắt dựa trên mục lục, tiêu đề và phần tổng kết. Hãy bổ sung chi tiết từ slide gốc vào ô ghi chú."}, {"t": "Phần mềm, điện toán đám mây và nền tảng", "n": "Bài 4 · Phần mềm và Cloud", "k": ["Phần mềm", "Cloud, IaaS/PaaS/SaaS", "Platform (PaaS)"], "s": "Phần mềm (theo IEEE) gồm chương trình, quy trình, tài liệu và dữ liệu. Cloud cho phép truy cập tài nguyên chia sẻ qua Internet theo nhu cầu.", "p": ["2 nhóm phần mềm: hệ thống (hệ điều hành) và ứng dụng", "Phần mềm cơ bản: Office, nén/giải nén (WinRAR, 7-Zip), bộ gõ tiếng Việt (Unikey), trình duyệt, đọc PDF", "Unicode là bộ mã chuẩn quốc tế; TCVN3 và VNI là bảng mã cũ", "Phần mềm chuyên dụng (y tế, giáo dục, ngân hàng, doanh nghiệp), phần mềm nhúng (firmware), phần mềm nguồn mở", "Bản quyền phần mềm: dùng hợp pháp, được cập nhật, hỗ trợ, đầy đủ tính năng, an toàn hơn", "5 yếu tố cloud theo NIST: truy cập mạng rộng rãi, tự phục vụ theo nhu cầu, co giãn nhanh, đo lường dịch vụ, dùng chung tài nguyên", "IaaS: thuê hạ tầng (Amazon EC2); PaaS: nền tảng cho lập trình viên; SaaS: phần mềm hoàn chỉnh (Microsoft 365, Google Workspace)", "Triển khai: Public, Private, Hybrid, Multi cloud, Community cloud", "PaaS gồm: hệ điều hành, middleware, công cụ phát triển, cơ sở dữ liệu; mô hình Public PaaS và Private PaaS"]}, {"t": "Mạng, Internet và IoT", "n": "Bài 5 · Mạng và IoT", "k": ["Mạng và Internet", "Mạng di động, 6G", "IoT"], "s": "Hiểu mạng máy tính, Internet, mạng không dây và di động, tầm nhìn mạng 6G và Internet vạn vật (IoT), cùng ý thức dùng Internet an toàn.", "p": ["Mạng máy tính và Internet, World Wide Web (www)", "Mạng không dây và sự phát triển của mạng di động", "Mạng 6G và tầm nhìn tương lai", "Internet vạn vật (IoT): thiết bị vật lý kết nối Internet, gửi và nhận dữ liệu", "Mục tiêu: phân biệt các công nghệ mạng phổ biến, vận dụng trong học tập, làm việc, xã hội số"], "x": "Lưu ý: nhiều slide của bài này chỉ chứa hình ảnh nên tóm tắt dựa trên mục lục, tiêu đề và phần tổng kết. Hãy bổ sung chi tiết từ slide gốc vào ô ghi chú."}, {"t": "Tư duy lập trình và tự động hóa IT", "n": "Bài 6 · Tự động hóa", "k": ["Tư duy lập trình", "BPA, RPA, IaC", "Low/No/Vibe-code"], "s": "Tư duy lập trình (computational thinking) giúp giải quyết vấn đề có hệ thống; tự động hóa IT và các nền tảng low-code, no-code, vibe-code giúp xây ứng dụng nhanh hơn.", "p": ["Tập trung vào bản chất của vấn đề", "Tìm kiếm sự tương đồng", "Xây dựng chỉ dẫn từng bước tuyệt đối chính xác", "Máy tính khuếch đại trí tuệ của bạn, nhưng bản thân nó không có trí tuệ", "Không phải mọi thứ đều có thể tính toán", "Tự động hóa theo cấp độ: doanh nghiệp (BPA), ứng dụng (RPA), hạ tầng (IaC)", "Ví dụ: tự động hóa onboarding nhân viên mới (tạo tài khoản, cấp quyền, bắt đầu đào tạo ngay ngày đầu)", "Low-code, No-code, Vibe-code là các cách xây dựng ứng dụng ít hoặc không cần viết mã"], "x": "Lưu ý: nhiều slide của bài này chỉ chứa hình ảnh nên tóm tắt dựa trên mục lục, tiêu đề và phần tổng kết. Hãy bổ sung chi tiết từ slide gốc vào ô ghi chú."}, {"t": "AI, dữ liệu và ứng dụng trong học tập, làm việc", "n": "Bài 7 · AI và dữ liệu", "k": ["AI và tác động", "Prompt Engineering", "Vai trò dữ liệu"], "s": "Hiểu AI và những tác động của nó, biết viết prompt và ứng dụng AI trong học tập, công việc, cùng vai trò của dữ liệu trong phát triển.", "p": ["Tổng quan về trí tuệ nhân tạo (AI) và những tác động của AI", "Prompt và Prompt Engineering, các thành phần của một prompt hoàn chỉnh", "Dữ liệu lớn (Big Data) là nguyên liệu thô; AI là động cơ chuyển hóa dữ liệu thành mục tiêu phát triển bền vững", "Khung chiến lược quốc gia: xây dựng hệ sinh thái dữ liệu bền vững", "Dữ liệu là nhiên liệu, AI là động cơ, chính sách lấy con người làm trung tâm là vô-lăng định hướng"], "x": "Lưu ý: nhiều slide của bài này chỉ chứa hình ảnh nên tóm tắt dựa trên mục lục, tiêu đề và phần tổng kết. Hãy bổ sung chi tiết từ slide gốc vào ô ghi chú."}, {"t": "An toàn thông tin và đạo đức số", "n": "Bài 8 · An toàn và đạo đức", "k": ["CIA và ISMS", "Đạo đức số", "Luật VN, deepfake"], "s": "Khai thác và sử dụng thông tin an toàn, hình thành ý thức đạo đức số và trách nhiệm số.", "p": ["An toàn thông tin xoay quanh 3 yếu tố C, I, A", "ISMS (ISO 27000): hệ thống chính sách, quy trình, nguồn lực để bảo vệ tài sản thông tin, dựa trên đánh giá rủi ro", "Nguyên tắc ISMS: nâng cao nhận thức, phân công trách nhiệm, chủ động phòng ngừa và phát hiện sự cố, đánh giá lại liên tục", "Đạo đức số: nhìn qua lăng kính của 4 tổ chức hàng đầu", "Luật An ninh mạng 24/2018/QH14, hiệu lực 01-01-2019", "Luật Trí tuệ nhân tạo 134/2025/QH15, hiệu lực 01-03-2026", "Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15, hiệu lực 01-01-2026", "Deepfake: nội dung giả do AI tạo ra, cần nhận biết và dùng có trách nhiệm"], "x": "Phần nội dung chi tiết về đạo đức số và deepfake chỉ có hình ảnh, bạn nên bổ sung."}];
+const C=[["Digitization", "Chuyển thông tin từ dạng vật lý sang số nhị phân (0 và 1)."], ["CMCN 4.0", "Kết nối thế giới vật lý và số; máy tự học, dữ liệu là tài nguyên quan trọng."], ["Big Data 3V", "Volume (lớn), Velocity (nhanh), Variety (đa dạng)."], ["CPU", "Bộ xử lý trung tâm, bộ não của máy tính; xung nhịp, số nhân, cache quyết định hiệu năng."], ["RAM", "Bộ nhớ tạm, truy cập rất nhanh, mất dữ liệu khi tắt nguồn."], ["ROM", "Bộ nhớ chỉ đọc, chứa BIOS/UEFI và firmware để khởi động máy."], ["Mô hình máy tính", "Input → Process → Output → Storage."], ["Hệ điều hành", "Phần mềm nền móng điều phối CPU, bộ nhớ và thiết bị cho ứng dụng."], ["VM và Container", "VM ưu tiên bảo mật tối đa; container ưu tiên hiệu suất và linh hoạt."], ["Phần mềm (IEEE)", "Chương trình, quy trình, tài liệu và dữ liệu liên quan đến vận hành hệ thống."], ["5 yếu tố cloud (NIST)", "Truy cập mạng rộng, tự phục vụ, co giãn nhanh, đo lường dịch vụ, dùng chung tài nguyên."], ["IaaS / PaaS / SaaS", "Hạ tầng / Nền tảng / Phần mềm như một dịch vụ."], ["Hybrid Cloud", "Kết hợp Public Cloud và Private Cloud, tối ưu chi phí và an toàn dữ liệu."], ["IoT", "Mạng các thiết bị vật lý kết nối Internet, gửi và nhận dữ liệu với nhau."], ["BPA, RPA, IaC", "Tự động hóa cấp doanh nghiệp, cấp ứng dụng, cấp hạ tầng."], ["Prompt", "Yêu cầu bạn gửi cho mô hình AI; viết rõ ràng thì kết quả tốt hơn."], ["CIA", "Bộ ba nguyên tắc an toàn thông tin (C, I, A)."], ["ISMS", "Hệ thống quản lý an toàn thông tin theo ISO 27000, dựa trên đánh giá rủi ro."], ["Deepfake", "Hình ảnh, âm thanh, video giả do AI tạo ra."]];
+/* ===== HẾT PHẦN SỬA ===== */
+const $=s=>document.querySelector(s),KEY="thuvien-so-v3";
+let S;try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
+S.done=S.done||{};S.notes=S.notes||{};S.p=S.p||{};const D0={name:"Nguyễn Thanh Thời",id:"PK05099",sub:"AI_Công nghệ thông tin 4.0",date:"2026-11-20"};for(const k in D0)if(!S.p[k])S.p[k]=D0[k];
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),1700)};
+const goLesson=i=>{cur=i;rTabs();rLesson();$("#bai-giang").scrollIntoView()};
+let cur=0;
+
+function stats(){const d=Object.values(S.done).filter(Boolean).length;$("#n").textContent=d;$("#fill").style.width=d/L.length*100+"%";
+ $("#toc").innerHTML=L.map((l,i)=>`<button class="${S.done[i]?"ok":""}" data-i="${i}">Bài ${i+1}<small>${l.t}</small></button>`).join("");
+ $("#cnt").textContent="Ghi chú đã lưu: "+Object.values(S.notes).filter(x=>x&&x.trim()).length+" / 8"}
+$("#toc").onclick=e=>{const b=e.target.closest("button");if(b)goLesson(+b.dataset.i)};
+
+/* Sơ đồ tư duy */
+const NS="http://www.w3.org/2000/svg",g=$("#g"),svg=$("#svg");
+let open=new Set(),V={x:0,y:0,k:1},sel=-1;
+const el=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
+function node(x,y,w,txt,cls,fn){const gr=el("g",{class:"nd "+cls,transform:`translate(${x},${y})`},g);el("rect",{x:-w/2,y:-18,width:w,height:36,rx:10},gr);el("text",{},gr).textContent=txt;gr.onclick=e=>{if(!moved)fn()};}
+function draw(){g.innerHTML="";g.setAttribute("transform",`translate(${V.x},${V.y}) scale(${V.k})`);
+ const pos=L.map((_,i)=>{const a=-Math.PI/2+i*2*Math.PI/8;return{a,x:Math.cos(a)*280,y:Math.sin(a)*280}});
+ pos.forEach((p,i)=>{el("path",{class:"ln",d:`M0 0L${p.x} ${p.y}`},g);
+  if(open.has(i)){const s=Math.cos(p.a)>=0?1:-1;L[i].k.forEach((_,j)=>{const cx=p.x+s*190,cy=p.y+(j-1)*44;el("path",{class:"ln",d:`M${p.x} ${p.y}L${cx} ${cy}`},g)})}});
+ node(0,0,190,"CNTT 4.0 và kỷ nguyên số","c",()=>show(-1));
+ pos.forEach((p,i)=>{node(p.x,p.y,150,L[i].n,"b",()=>{open.has(i)?open.delete(i):open.add(i);show(i);draw()});
+  if(open.has(i)){const s=Math.cos(p.a)>=0?1:-1;L[i].k.forEach((t,j)=>node(p.x+s*190,p.y+(j-1)*44,150,t,"l",()=>show(i)))}});
+ $("#zr").textContent=Math.round(V.k*100)+"%"}
+function show(i){sel=i;const b=$("#info");
+ if(i<0){b.innerHTML=`<h3>CNTT 4.0 và kỷ nguyên số</h3><p>Hệ sinh thái công nghệ hợp nhất giữa thế giới vật lý, số và sinh học. Dữ liệu là tư liệu sản xuất cốt lõi, kết hợp AI, điện toán đám mây và tự động hóa.</p>`;return}
+ const l=L[i];b.innerHTML=`<h3>${l.t}</h3><p>${l.s}</p><ul>${l.p.map(x=>`<li>${x}</li>`).join("")}</ul><button class="btn" id="go">Mở chi tiết bài giảng tương ứng</button>`;$("#go").onclick=()=>goLesson(i)}
+let moved=false,drag=null;
+svg.onpointerdown=e=>{drag={x:e.clientX,y:e.clientY,vx:V.x,vy:V.y};moved=false};
+svg.onpointermove=e=>{if(!drag)return;const f=1200/svg.clientWidth,dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>4){moved=true;V.x=drag.vx+dx*f;V.y=drag.vy+dy*f;g.setAttribute("transform",`translate(${V.x},${V.y}) scale(${V.k})`)}};
+svg.onpointerup=svg.onpointerleave=()=>{drag=null;setTimeout(()=>moved=false,0)};
+const zoom=f=>{V.k=Math.min(2.2,Math.max(.4,V.k*f));draw()};
+svg.onwheel=e=>{e.preventDefault();zoom(e.deltaY<0?1.1:.9)};
+$("#zin").onclick=()=>zoom(1.2);$("#zout").onclick=()=>zoom(.83);
+$("#all").onclick=()=>{L.forEach((_,i)=>open.add(i));draw()};$("#none").onclick=()=>{open.clear();draw()};
+
+/* Bài giảng */
+function rTabs(){$("#tabs").innerHTML=L.map((l,i)=>`<button class="tab ${S.done[i]?"ok":""}" role="tab" aria-selected="${i===cur}" data-i="${i}">Bài ${i+1}<small>${l.n.split("· ")[1]}</small></button>`).join("")}
+$("#tabs").onclick=e=>{const b=e.target.closest(".tab");if(b){cur=+b.dataset.i;rTabs();rLesson()}};
+function rLesson(){const l=L[cur];
+ $("#lesson").innerHTML=`<h3>Bài ${cur+1}: ${l.t}</h3><p>${l.s}</p><ul>${l.p.map(x=>`<li>${x}</li>`).join("")}</ul>${l.x?`<p style="color:var(--mute);font-size:.9rem">${l.x}</p>`:""}
+ ${l.sim?`<div class="sim"><b>Mô phỏng: chữ thành nhị phân</b><input id="bi" value="Hi" aria-label="Nhập chữ"><code id="bo"></code></div>`:""}
+ <label><input type="checkbox" id="dn" style="width:auto" ${S.done[cur]?"checked":""}> Đánh dấu đã học</label>
+ <p><label for="nt"><b>Ghi chú của bạn</b></label><textarea id="nt">${S.notes[cur]||""}</textarea></p>`;
+ if(l.sim){const f=()=>$("#bo").textContent=[...new TextEncoder().encode($("#bi").value)].map(b=>b.toString(2).padStart(8,"0")).join(" ");$("#bi").oninput=f;f()}
+ $("#dn").onchange=e=>{S.done[cur]=e.target.checked;save();stats();rTabs()};
+ $("#nt").oninput=e=>{S.notes[cur]=e.target.value;save();stats();rNotes()}}
+
+/* Thẻ + ghi nhớ */
+let ord=C.map((_,i)=>i),ci=0,fl=false;
+function rCard(){const c=C[ord[ci]],f=$("#face");f.className="face"+(fl?" b":"");f.innerHTML=fl?`<small>Giải thích cốt lõi</small><h3 style="font-family:inherit;font-size:1.15rem;font-weight:500">${c[1]}</h3>`:`<small>Bài ôn tập · thuật ngữ</small><h3>${c[0]}</h3><small>Bấm để lật</small>`;$("#ci").textContent=`Thẻ ${ci+1} / ${C.length}`}
+$("#face").onclick=()=>{fl=!fl;rCard()};$("#nx").onclick=()=>{ci=(ci+1)%C.length;fl=false;rCard()};$("#pv").onclick=()=>{ci=(ci-1+C.length)%C.length;fl=false;rCard()};$("#sh").onclick=()=>{ord.sort(()=>Math.random()-.5);ci=0;fl=false;rCard()};
+function rNotes(){const a=document.activeElement;if(a&&a.dataset&&a.dataset.n!==undefined)return;$("#notes").innerHTML=L.map((l,i)=>`<div><label for="x${i}">Bài ${i+1}: ${l.t}</label><textarea id="x${i}" data-n="${i}">${S.notes[i]||""}</textarea></div>`).join("")}
+$("#notes").oninput=e=>{S.notes[e.target.dataset.n]=e.target.value;save();stats()};
+const mode=m=>{$("#cards").hidden=m!==1;$("#notes").hidden=m!==2;$("#m1").setAttribute("aria-pressed",m===1);$("#m2").setAttribute("aria-pressed",m===2);if(m===2)rNotes()};
+$("#m1").onclick=()=>mode(1);$("#m2").onclick=()=>mode(2);
+
+/* Hồ sơ */
+const PF={p1:"name",p2:"id",p3:"sub",p4:"date"};
+Object.entries(PF).forEach(([i,k])=>$("#"+i).value=S.p[k]||"");
+const foot=()=>$("#foot").textContent="Sinh viên: "+(S.p.name||"(chưa nhập tên)")+(S.p.id?" ("+S.p.id+")":"")+" · Thiết kế Editorial Tech";
+$("#save").onclick=()=>{Object.entries(PF).forEach(([i,k])=>S.p[k]=$("#"+i).value.trim());save();foot();toast("Đã lưu hồ sơ")};
+$("#reset").onclick=()=>{if(confirm("Xóa toàn bộ dữ liệu đã lưu?")){try{localStorage.removeItem(KEY)}catch(e){}location.reload()}};
+$("#theme").onclick=e=>{e.preventDefault();const r=document.documentElement;r.dataset.theme=getComputedStyle(r).colorScheme==="dark"?"light":"dark"};
+
+stats();draw();show(-1);rTabs();rLesson();rCard();foot();
+</script>
+</body>
+</html>
